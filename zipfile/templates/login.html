@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Log In | Quantum Vault</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="auth-page">
+    <main class="auth-card">
+        <h1>Welcome back</h1>
+        <p>Log in to access your saved passwords.</p>
+
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+                <p class="notice">{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        <form method="post" action="{{ url_for('login') }}">
+            <label for="identity">Username or email</label>
+            <input id="identity" name="identity" required
+                   autocomplete="username">
+
+            <label for="master_password">Master password</label>
+            <input id="master_password" name="master_password"
+                   type="password" required
+                   autocomplete="current-password">
+
+            <button type="submit">Log in</button>
+        </form>
+
+        <p>New here? <a href="{{ url_for('register') }}">Create an account</a></p>
+    </main>
+</body>
+</html>

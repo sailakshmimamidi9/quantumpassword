@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Your Vault | Quantum Password Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="app-layout">
+    <aside class="sidebar">
+        <h2>Quantum Vault</h2>
+        <p class="muted">Your saved accounts</p>
+
+        <nav aria-label="Saved passwords">
+            {% for record in records %}
+                <a class="service-link"
+                   href="{{ url_for('reveal_password', record_id=record.id) }}">
+                    <strong>{{ record.service_name }}</strong>
+                    {% if record.account_username %}
+                        <small>{{ record.account_username }}</small>
+                    {% endif %}
+                </a>
+            {% else %}
+                <p class="muted">Your vault is empty.</p>
+            {% endfor %}
+        </nav>
+
+        <form method="post" action="{{ url_for('logout') }}">
+            <button class="secondary-button" type="submit">Log out</button>
+        </form>
+    </aside>
+
+    <main class="main-content">
+        <h1>Your password vault</h1>
+        <p class="muted">Generate and save passwords for your accounts.</p>
+
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+                <p class="notice">{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        {% if revealed_password %}
+            {% for record in records %}
+                {% if record.id == revealed_record_id %}
+                    <section class="panel">
+                        <h2>{{ record.service_name }}</h2>
+                        <p>Account: {{ record.account_username or "Not specified" }}</p>
+                        <label for="revealed-password">Saved password</label>
+                        <div class="password-output" id="revealed-password">{{ revealed_password }}</div>
+                        <button type="button" id="copy-password">Copy password</button>
+                    </section>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        <section class="panel" id="generator">
+            <h2>Generate a password</h2>
+
+            <form method="post" action="{{ url_for('generate') }}" id="generator-form">
+                <label for="service_name">Choose a service</label>
+                <select id="service_name" name="service_name" required>
+                    <option value="">Select a service</option>
+                    <option value="Instagram">Instagram</option>
+                    <option value="Facebook">Facebook</option>
+                    <option value="Google">Google</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <label for="custom_service">Custom service name (optional)</label>
+                <input id="custom_service" type="text" maxlength="120"
+                       placeholder="For example, school portal">
+
+                <label for="account_username">Account username or email (optional)</label>
+                <input id="account_username" name="account_username"
+                       maxlength="255" autocomplete="off">
+
+                <label for="password_length">Password length (8–64)</label>
+                <input id="password_length" name="password_length"
+                       type="number" min="8" max="64" value="16" required>
+
+                <button type="submit">Generate and save</button>
+            </form>
+        </section>
+    </main>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

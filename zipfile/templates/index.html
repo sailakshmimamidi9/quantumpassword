@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quantum Password Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="home-page">
+    <main class="home-card">
+        <h1>Quantum Password Manager</h1>
+        <p>Generate, encrypt, and organize your passwords in one place.</p>
+        <div class="home-actions">
+            <a class="button-link" href="{{ url_for('login') }}">Log in</a>
+            <a class="button-link secondary-link" href="{{ url_for('register') }}">Create account</a>
+        </div>
+    </main>
+</body>
+</html>
