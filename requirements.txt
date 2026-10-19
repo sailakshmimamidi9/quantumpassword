@@ -4,4 +4,4 @@ Flask-SQLAlchemy
 cryptography
 argon2-cffi
 Werkzeug
-psycopg2-binary
+psycopg[binary]
