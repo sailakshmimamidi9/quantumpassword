@@ -2,10 +2,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0;url={{ url_for('dashboard') }}">
-    <title>Quantum Vault</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Quantum Password Manager</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <p>Open your <a href="{{ url_for('dashboard') }}">password vault</a>.</p>
+
+    <header class="navbar">
+        <div class="logo">Quantum Password Manager</div>
+
+        <nav>
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </nav>
+    </header>
+
+    <main class="dashboard-container">
+        <section class="welcome-section">
+            <h1>Welcome to Your Dashboard</h1>
+            <p>
+                Manage your saved passwords securely in one place.
+            </p>
+        </section>
+
+        <section class="dashboard-card">
+            <h2>Your Password Vault</h2>
+            <p>
+                Generate strong passwords, save them encrypted,
+                and access your saved records.
+            </p>
+
+            <a class="btn" href="{{ url_for('dashboard') }}">
+                Open Password Vault
+            </a>
+        </section>
+
+        <section class="dashboard-card">
+            <h2>Security Tips</h2>
+            <ul>
+                <li>Use a strong, unique master password.</li>
+                <li>Never share your master password.</li>
+                <li>Keep your encryption keys private.</li>
+                <li>Log out when you finish using your account.</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Quantum Password Manager</p>
+    </footer>
+
 </body>
 </html>
